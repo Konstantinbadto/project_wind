@@ -22,3 +22,12 @@ main()
 .then(console.log)
 .catch(console.error)
 .finally(() => client.close());
+const { MongoClient } = require('mongodb');
+// or as an es module:
+// import { MongoClient } from 'mongodb'
+var data = require("./data.js").data;
+// const { MongoClient } = require('mongodb');
+// // or as an es module:
+// // import { MongoClient } from 'mongodb'
+var data = require("./data.js").data;
+console.log(data)
