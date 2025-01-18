@@ -18,3 +18,14 @@ var data = [{
     }
     ];
     module.exports.data = data;
+    router.get("/:nick", async function(req, res, next) {
+        var winds = await Wind.find({nick: req.params.nick});
+        console.log(winds)
+        if(!winds.length) return next(new Error("Нет такого ветра "))
+        var wind = winds[0];
+        res.render('wind', {
+        title: wind.title,
+        picture: wind.avatar,
+        desc: wind.desc
+        })
+        });
