@@ -5,6 +5,14 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user').User;
 
+/* POST logout. */
+router.post('/logout', function(req, res, next) {
+  req.session.destroy();
+  res.locals.user = null;
+  res.redirect('/');
+  });
+  
+
 router.get('/', function(req, res, next) {
   req.session.greeting = "Hi!!!";
   res.render('index', { title: 'Express',
@@ -34,6 +42,7 @@ router.post('/logreg', async function(req, res, next) {
   res.redirect('/');
   } else {
   //res.send("<h1>Пользователь найден</h1>");
+
 var foundUser = users[0];
 if(foundUser.checkPassword(password)){
 req.session.user_id = foundUser._id
