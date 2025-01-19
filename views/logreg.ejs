@@ -19,5 +19,8 @@
     <input class="btn btn-primary" type="submit"
     value="Войти"/>
     </div>
+    <% if(error) { %>
+        <div class="alert alert-danger"><%= error %></div>
+        <% } %>
     </div>
     </form>
