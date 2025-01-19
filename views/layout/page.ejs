@@ -22,16 +22,17 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <% if(typeof nav == 'object' && nav){
+                    nav.forEach(function(item){
+                    %>
                     <li class="nav-item">
-                        <a class="nav-link" href="/winds/mistral">Мистраль</a>
+                    <a class="nav-link" href="/winds/<%= item.nick %>"><%=
+                    item.title %></a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/winds/musson">Муссон</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/winds/sundowner">Сандаунер</a>
-                    </li>
-                </ul>
+                    <%
+                    })}
+                    %>
+                    </ul>
             </div>
         </div>
     </nav>

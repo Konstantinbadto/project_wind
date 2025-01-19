@@ -15,7 +15,7 @@ var winds = require('./routes/winds');
 var app = express();
 
 // view engine setup
-app.engine('ejs',require('ejs-locals'));
+app.engine('ejs', require('ejs-locals'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -28,21 +28,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 app.use(session({
-  secret: "Winds", 
-  cookie: { maxAge: 60 * 1000 }, 
-  proxy: true, 
-  resave: false, 
-  saveUninitialized: true, 
+  secret: "Winds",
+  cookie: { maxAge: 60 * 1000 },
+  proxy: true,
+  resave: false,
+  saveUninitialized: true,
   store: MongoStore.create({
     mongoUrl: 'mongodb://localhost/tc2024',
 
   })
 }));
-app.use(function(req,res,next){
+
+app.use(require("./middlewares/createMenu.js"))
+
+app.use(function (req, res, next) {
   req.session.counter = req.session.counter + 1 || 1
   next()
-  })
-  
+})
+
 
 
 app.use('/', indexRouter);
@@ -50,12 +53,12 @@ app.use('/users', usersRouter);
 app.use('/winds', winds);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
