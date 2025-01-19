@@ -8,6 +8,7 @@ mongoose.connect('mongodb://localhost/tc2024')
 var session = require("express-session")
 var MongoStore = require('connect-mongo');
 
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var winds = require('./routes/winds');
