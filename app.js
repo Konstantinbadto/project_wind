@@ -26,19 +26,23 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// Настройка сессии (ОДИН РАЗ)
+
 app.use(session({
-  secret: "Winds", // Используйте сильный секрет в продакшене
-  cookie: { maxAge: 60 * 1000 }, // Время жизни куки (1 минута)
-  proxy: true, // Если ваш сервер за прокси
-  resave: false, // Не сохранять сессию при каждом запросе
-  saveUninitialized: false, // Не сохранять новую сессию, пока нет данных
+  secret: "Winds", 
+  cookie: { maxAge: 60 * 1000 }, 
+  proxy: true, 
+  resave: false, 
+  saveUninitialized: true, 
   store: MongoStore.create({
     mongoUrl: 'mongodb://localhost/tc2024',
-    collectionName: 'sessions',
-    ttl: 14 * 24 * 60 * 60
+
   })
 }));
+app.use(function(req,res,next){
+  req.session.counter = req.session.counter + 1 || 1
+  next()
+  })
+  
 
 
 app.use('/', indexRouter);
