@@ -6,8 +6,9 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/tc2024')
 var session = require("express-session")
+var MongoStore = require('connect-mongo');
 
-var indexRouter = require('./routes/index'); // Путь к index.js
+var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var winds = require('./routes/winds');
 
@@ -24,13 +25,21 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+// Настройка сессии (ОДИН РАЗ)
 app.use(session({
-  secret: "Wind",
-  cookie:{maxAge:60*1000},
-  proxy: true,
-  resave: true,
-  saveUninitialized: true
-  }))
+  secret: "Winds", // Используйте сильный секрет в продакшене
+  cookie: { maxAge: 60 * 1000 }, // Время жизни куки (1 минута)
+  proxy: true, // Если ваш сервер за прокси
+  resave: false, // Не сохранять сессию при каждом запросе
+  saveUninitialized: false, // Не сохранять новую сессию, пока нет данных
+  store: MongoStore.create({
+    mongoUrl: 'mongodb://localhost/tc2024',
+    collectionName: 'sessions',
+    ttl: 14 * 24 * 60 * 60
+  })
+}));
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
