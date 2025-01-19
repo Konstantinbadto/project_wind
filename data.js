@@ -14,18 +14,8 @@ var data = [{
     title: 'Сандаунер',
     nick: 'sundowner',
     avatar: '/images/sundowner.png',
-    desc: 'андаунер — это северный морской ветер в Калифорнии вдоль южного тихоокеанского склона гор Санта-Инес, в населённых пунктах вдоль побережья Гавиота и Санта-Барбара в направлении округа Вентура, но не включая его'
+    desc: 'Cандаунер — это северный морской ветер в Калифорнии вдоль южного тихоокеанского склона гор Санта-Инес, в населённых пунктах вдоль побережья Гавиота и Санта-Барбара в направлении округа Вентура, но не включая его'
     }
     ];
     module.exports.data = data;
-    router.get("/:nick", async function(req, res, next) {
-        var winds = await Wind.find({nick: req.params.nick});
-        console.log(winds)
-        if(!winds.length) return next(new Error("Нет такого ветра "))
-        var wind = winds[0];
-        res.render('wind', {
-        title: wind.title,
-        picture: wind.avatar,
-        desc: wind.desc
-        })
-        });
+   
