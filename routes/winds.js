@@ -19,6 +19,4 @@ router.get("/:nick", async function (req, res, next) {
     })
 });
 
-
 module.exports = router;
-
