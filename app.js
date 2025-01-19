@@ -7,7 +7,7 @@ var mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/tc2024')
 var session = require("express-session")
 
-var indexRouter = require('./routes/index');
+var indexRouter = require('./routes/index'); // Путь к index.js
 var usersRouter = require('./routes/users');
 var winds = require('./routes/winds');
 
