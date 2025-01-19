@@ -41,6 +41,7 @@ app.use(session({
 }));
 
 app.use(require("./middlewares/createMenu.js"))
+app.use(require("./middlewares/createUser.js"))
 
 app.use(function (req, res, next) {
   req.session.counter = req.session.counter + 1 || 1
